@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resumen RTF</title>
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0d47a1">
   <style>
     body {
@@ -45,6 +46,18 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 1rem;
+    }
+    #installBtn {
+      display: none;
+      background-color: #0d47a1;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      margin: 1rem auto;
+      display: block;
+      cursor: pointer;
     }
     .grid-container {
       display: grid;
@@ -87,6 +100,7 @@
   </header>
 
   <input type="text" id="searchInput" placeholder="Buscar por palabra clave..." oninput="filterSections()">
+  <button id="installBtn">📲 Instalar esta app</button>
 
   <div class="grid-container">
     <div class="accordion">
@@ -140,6 +154,25 @@
   </div>
 
   <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      installBtn.style.display = 'none';
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`Instalación: ${outcome}`);
+        deferredPrompt = null;
+      }
+    });
+
     function toggleAccordion(element) {
       const parent = element.parentElement;
       parent.classList.toggle('open');
