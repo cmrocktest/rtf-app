@@ -2,10 +2,160 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta http-equiv="refresh" content="0; url=index-v4.html">
-  <title>Redirigiendo...</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen RTF</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d47a1">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+      padding: 1rem;
+      scroll-behavior: smooth;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background-color: #0d47a1;
+      color: white;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+    header img {
+      height: 36px;
+      margin-right: 0.5rem;
+    }
+    h1 {
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+    }
+    #searchInput {
+      width: 100%;
+      max-width: 300px;
+      padding: 6px 12px;
+      margin: 1rem auto;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .accordion {
+      background: white;
+      border-radius: 8px;
+      margin: 1rem 0;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .accordion.hidden {
+      display: none;
+    }
+    .accordion h2 {
+      color: #0d47a1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .accordion-content {
+      display: none;
+      padding-top: 0.5rem;
+    }
+    .accordion.open .accordion-content {
+      display: block;
+    }
+    .accordion h2 img.icon {
+      width: 32px;
+      height: 32px;
+    }
+  </style>
 </head>
 <body>
-  <p>Redirigiendo a la última versión... Si no eres redirigido automáticamente, <a href="index-v4.html">haz clic aquí</a>.</p>
+  <header>
+    <h1><img src="https://img.icons8.com/color/48/train.png" alt="icono tren"/> Resumen RTF</h1>
+  </header>
+
+  <input type="text" id="searchInput" placeholder="Buscar por palabra clave..." oninput="filterSections()">
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/traffic-jam.png"/> Presentación</h2>
+    <div class="accordion-content">
+      <p>Busca garantizar la administración y operación segura del tráfico ferroviario, promoviendo sostenibilidad y estándares de servicio.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/fluency/48/contract-job.png"/> Capítulo 1: Generalidades</h2>
+    <div class="accordion-content">
+      <p>Define el alcance del reglamento, obligaciones del personal, comunicaciones y glosario básico.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/traffic-light.png"/> Capítulo 2: Señales y Dispositivos</h2>
+    <div class="accordion-content">
+      <p>Clasificación y uso de señales ferroviarias. Protocolos ante fallas.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/ios-filled/50/train.png"/> Capítulo 3: Movilización</h2>
+    <div class="accordion-content">
+      <p>Reglas de circulación de trenes según sistema (CTC, SB, AUV). Límites de velocidad y autorizaciones.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/fluency/48/cargo-train.png"/> Capítulo 4: Composición y Frenado</h2>
+    <div class="accordion-content">
+      <p>Requisitos técnicos, documentación y normas sobre frenos y carga de trenes.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/forklift.png"/> Capítulo 5: Maniobras</h2>
+    <div class="accordion-content">
+      <p>Instrucciones sobre maniobras ferroviarias, señalización y responsabilidades del personal.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/road-worker.png"/> Capítulo 6: Faenas Ferroviarias</h2>
+    <div class="accordion-content">
+      <p>Normas de seguridad para trabajos en la vía. Protección de trabajadores y uso de señalización.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/emergency.png"/> Capítulo 7: Anormalidades</h2>
+    <div class="accordion-content">
+      <p>Acciones ante fallas, emergencias y descarrilamientos. Procedimientos y comunicaciones.</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleAccordion(element) {
+      const parent = element.parentElement;
+      parent.classList.toggle('open');
+    }
+
+    function filterSections() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const sections = document.querySelectorAll('.accordion');
+
+      sections.forEach(section => {
+        const text = section.innerText.toLowerCase();
+        section.classList.toggle('hidden', !text.includes(input));
+      });
+    }
+  </script>
 </body>
 </html>
