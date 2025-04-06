@@ -1,14 +1,18 @@
 
+const CACHE_NAME = 'rtf-app-v2';
+
+const FILES_TO_CACHE = [
+  'index.html',
+  'manifest.json',
+  'icon.png',
+  'instructivo-uso-miniscape.mp4'
+];
+
 self.addEventListener('install', function(e) {
-  self.skipWaiting(); // Fuerza activación inmediata del nuevo SW
+  self.skipWaiting(); // activa al instante
   e.waitUntil(
-    caches.open('rtf-app').then(function(cache) {
-      return cache.addAll([
-        'index.html',
-        'manifest.json',
-        'icon.png',
-        'instructivo-uso-miniscape.mp4'
-      ]);
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(FILES_TO_CACHE);
     })
   );
 });
@@ -17,8 +21,8 @@ self.addEventListener('activate', function(e) {
   e.waitUntil(
     caches.keys().then(function(keyList) {
       return Promise.all(keyList.map(function(key) {
-        if (key !== 'rtf-app') {
-          return caches.delete(key);
+        if (key !== CACHE_NAME) {
+          return caches.delete(key); // borra caché anterior
         }
       }));
     })
