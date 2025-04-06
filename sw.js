@@ -1,11 +1,11 @@
 
-const CACHE_NAME = 'rtf-app-v3';
+const CACHE_NAME = 'rtf-app-v4';
 
 const FILES_TO_CACHE = [
-  'index.html?v=3',
-  'manifest.json?v=3',
-  'icon.png?v=3',
-  'instructivo-uso-miniscape.mp4?v=3'
+  'index.html?v=4',
+  'manifest.json?v=4',
+  'icon.png?v=4',
+  'instructivo-uso-miniscape.mp4?v=4'
 ];
 
 self.addEventListener('install', function(e) {
