@@ -1,20 +1,32 @@
 
 self.addEventListener('install', function(e) {
+  self.skipWaiting(); // Fuerza activación inmediata del nuevo SW
   e.waitUntil(
     caches.open('rtf-app').then(function(cache) {
       return cache.addAll([
-        'Resumen_Interactivo_RTF.html',
+        'index.html',
         'manifest.json',
-        'icon.png'
+        'icon.png',
+        'instructivo-uso-miniscape.mp4'
       ]);
+    })
+  );
+});
+
+self.addEventListener('activate', function(e) {
+  e.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (key !== 'rtf-app') {
+          return caches.delete(key);
+        }
+      }));
     })
   );
 });
 
 self.addEventListener('fetch', function(e) {
   e.respondWith(
-    caches.match(e.request).then(function(response) {
-      return response || fetch(e.request);
-    })
+    fetch(e.request).catch(() => caches.match(e.request))
   );
 });
