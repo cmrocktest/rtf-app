@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumen RTF - App Web</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d47a1" />
+  <link rel="icon" type="image/png" href="icon.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #0d47a1;
+    }
+    .accordion {
+      background-color: #ffffff;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: 1px solid #ccc;
+      text-align: left;
+      outline: none;
+      font-size: 16px;
+      transition: 0.4s;
+      margin-top: 10px;
+    }
+    .active, .accordion:hover {
+      background-color: #e3f2fd;
+    }
+    .panel {
+      padding: 0 18px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
+    #installBtn {
+      display: none;
+      padding: 12px 24px;
+      margin: 20px auto;
+      display: block;
+      background-color: #0d47a1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #installBtn:hover {
+      background-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Resumen Interactivo - Reglamento de Tráfico Ferroviario (RTF)</h1>
+  <div class="version-label">Versión 3</div>
+
+  <button id="installBtn">📲 Instalar App</button>
+
+  <button class="accordion">Capítulo 1: Generalidades</button>
+  <div class="panel">
+    <p>Normas generales, obligaciones del personal, documentación, comunicaciones y glosario.</p>
+  </div>
+
+  <button class="accordion">Capítulo 2: Videos</button>
+  <div class="panel">
+    <p>Tipos de señales, dispositivos de seguridad y acciones ante fallas.</p>
+    <h3>🎥 Instructivo uso de Miniscape</h3>
+    <video controls width="100%">
+      <source src="instructivo-uso-miniscape.mp4" type="video/mp4">
+      Tu navegador no soporta video HTML5.
+    </video>
+  </div>
+
+  <button class="accordion">Capítulo 3: Movilización</button>
+  <div class="panel">
+    <p>Reglas de circulación y sistemas como CTC, SB, AUV, etc.</p>
+  </div>
+
+  <button class="accordion">Capítulo 4: Composición y Frenado</button>
+  <div class="panel">
+    <p>Peso, carga, frenos, documentación y condiciones de operación.</p>
+  </div>
+
+  <button class="accordion">Capítulo 5: Maniobras</button>
+  <div class="panel">
+    <p>Tipos, ejecución y normas para maniobras en diferentes contextos.</p>
+  </div>
+
+  <button class="accordion">Capítulo 6: Faenas</button>
+  <div class="panel">
+    <p>Clasificación, protección y regímenes de trabajos ferroviarios.</p>
+  </div>
+
+  <button class="accordion">Capítulo 7: Anormalidades</button>
+  <div class="panel">
+    <p>Procedimientos ante incidentes, fallas, cortes y eventos críticos.</p>
+  </div>
+
+  <script>
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    }
+
+    // Eliminar Service Worker existente
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      });
+    }
+
+    // Botón de instalación
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+
+      installBtn.addEventListener('click', async () => {
+        installBtn.style.display = 'none';
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`Instalación: ${outcome}`);
+        deferredPrompt = null;
+      });
+    });
+
+    window.addEventListener('appinstalled', () => {
+      console.log('App instalada con éxito');
+      installBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
