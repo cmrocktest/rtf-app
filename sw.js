@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'rtf-app-v2';
+const CACHE_NAME = 'rtf-app-v3';
 
 const FILES_TO_CACHE = [
   'index.html',
