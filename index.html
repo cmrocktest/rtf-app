@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resumen RTF</title>
-  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0d47a1">
   <style>
     body {
@@ -47,10 +46,14 @@
       border: 1px solid #ccc;
       font-size: 1rem;
     }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
     .accordion {
       background: white;
       border-radius: 8px;
-      margin: 1rem 0;
       padding: 1rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, opacity 0.3s ease;
@@ -85,59 +88,54 @@
 
   <input type="text" id="searchInput" placeholder="Buscar por palabra clave..." oninput="filterSections()">
 
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/traffic-jam.png"/> Presentación</h2>
-    <div class="accordion-content">
-      <p>Busca garantizar la administración y operación segura del tráfico ferroviario, promoviendo sostenibilidad y estándares de servicio.</p>
+  <div class="grid-container">
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/traffic-jam.png"/> Presentación</h2>
+      <div class="accordion-content">
+        <p>Busca garantizar la administración y operación segura del tráfico ferroviario, promoviendo sostenibilidad y estándares de servicio.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/fluency/48/contract-job.png"/> Capítulo 1: Generalidades</h2>
-    <div class="accordion-content">
-      <p>Define el alcance del reglamento, obligaciones del personal, comunicaciones y glosario básico.</p>
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/fluency/48/contract-job.png"/> Capítulo 1: Generalidades</h2>
+      <div class="accordion-content">
+        <p>Define el alcance del reglamento, obligaciones del personal, comunicaciones y glosario básico.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/traffic-light.png"/> Capítulo 2: Señales y Dispositivos</h2>
-    <div class="accordion-content">
-      <p>Clasificación y uso de señales ferroviarias. Protocolos ante fallas.</p>
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/traffic-light.png"/> Capítulo 2: Señales y Dispositivos</h2>
+      <div class="accordion-content">
+        <p>Clasificación y uso de señales ferroviarias. Protocolos ante fallas.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/ios-filled/50/train.png"/> Capítulo 3: Movilización</h2>
-    <div class="accordion-content">
-      <p>Reglas de circulación de trenes según sistema (CTC, SB, AUV). Límites de velocidad y autorizaciones.</p>
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/ios-filled/50/train.png"/> Capítulo 3: Movilización</h2>
+      <div class="accordion-content">
+        <p>Reglas de circulación de trenes según sistema (CTC, SB, AUV). Límites de velocidad y autorizaciones.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/fluency/48/cargo-train.png"/> Capítulo 4: Composición y Frenado</h2>
-    <div class="accordion-content">
-      <p>Requisitos técnicos, documentación y normas sobre frenos y carga de trenes.</p>
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/fluency/48/cargo-train.png"/> Capítulo 4: Composición y Frenado</h2>
+      <div class="accordion-content">
+        <p>Requisitos técnicos, documentación y normas sobre frenos y carga de trenes.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/forklift.png"/> Capítulo 5: Maniobras</h2>
-    <div class="accordion-content">
-      <p>Instrucciones sobre maniobras ferroviarias, señalización y responsabilidades del personal.</p>
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/forklift.png"/> Capítulo 5: Maniobras</h2>
+      <div class="accordion-content">
+        <p>Instrucciones sobre maniobras ferroviarias, señalización y responsabilidades del personal.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/road-worker.png"/> Capítulo 6: Faenas Ferroviarias</h2>
-    <div class="accordion-content">
-      <p>Normas de seguridad para trabajos en la vía. Protección de trabajadores y uso de señalización.</p>
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/road-worker.png"/> Capítulo 6: Faenas Ferroviarias</h2>
+      <div class="accordion-content">
+        <p>Normas de seguridad para trabajos en la vía. Protección de trabajadores y uso de señalización.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="accordion">
-    <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/emergency.png"/> Capítulo 7: Anormalidades</h2>
-    <div class="accordion-content">
-      <p>Acciones ante fallas, emergencias y descarrilamientos. Procedimientos y comunicaciones.</p>
+    <div class="accordion">
+      <h2 onclick="toggleAccordion(this)"><img class="icon" src="https://img.icons8.com/color/48/emergency.png"/> Capítulo 7: Anormalidades</h2>
+      <div class="accordion-content">
+        <p>Acciones ante fallas, emergencias y descarrilamientos. Procedimientos y comunicaciones.</p>
+      </div>
     </div>
   </div>
 
